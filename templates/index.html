@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Heart Disease Risk Predictor</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    crossorigin="anonymous"
+  />
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <h1>🫀 Heart Disease Risk Predictor 🩺</h1>
+      <!--<img src="{{ url_for('static', filename='images/heartbeat.gif') }}" alt="Heartbeat animation" class="heartbeat-gif" /> -->
+    </div>
+  </header>
+
+  <main>
+    <form method="POST" action="/" id="predictionForm">
+      <div class="input-row">
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender" required>
+          <option value="" disabled selected>Select Gender</option>
+          <option value="1">Male</option>
+          <option value="0">Female</option>
+        </select>
+      </div>
+
+      <div class="input-row">
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age" min="1" max="120" required />
+      </div>
+
+      <div class="input-row">
+        <label for="education">Education Level</label>
+        <select id="education" name="education" required>
+          <option value="" disabled selected>Select Education</option>
+          <option value="1">High School</option>
+          <option value="2">College</option>
+          <option value="3">University</option>
+          <option value="4">Graduate</option>
+          <option value="5">Postgraduate</option>
+        </select>
+      </div>
+
+      <div class="input-row">
+        <label for="currentSmoker">Current Smoker</label>
+        <select id="currentSmoker" name="currentSmoker" required>
+          <option value="" disabled selected>Smoker?</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+      </div>
+
+      <div class="input-row">
+        <label for="cigsPerDay">Cigarettes Per Day</label>
+        <input type="number" id="cigsPerDay" name="cigsPerDay" min="0" max="100" required />
+      </div>
+
+      <div class="input-row">
+        <label for="BPMeds">Blood Pressure Medications</label>
+        <select id="BPMeds" name="BPMeds" required>
+          <option value="" disabled selected>On BP Meds?</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+      </div>
+
+      <div class="input-row">
+        <label for="prevalentStroke">History of Stroke</label>
+        <select id="prevalentStroke" name="prevalentStroke" required>
+          <option value="" disabled selected>Stroke History?</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+      </div>
+
+      <div class="input-row">
+        <label for="prevalentHyp">History of Hypertension</label>
+        <select id="prevalentHyp" name="prevalentHyp" required>
+          <option value="" disabled selected>Hypertension?</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+      </div>
+
+      <div class="input-row">
+        <label for="diabetes">Diabetes</label>
+        <select id="diabetes" name="diabetes" required>
+          <option value="" disabled selected>Diabetes?</option>
+          <option value="1">Yes</option>
+          <option value="0">No</option>
+        </select>
+      </div>
+
+      <div class="input-row">
+        <label for="totChol">Total Cholesterol (mg/dL)</label>
+        <input type="number" id="totChol" name="totChol" min="50" max="600" required />
+      </div>
+
+      <div class="input-row">
+        <label for="sysBP">Systolic BP (mm Hg)</label>
+        <input type="number" id="sysBP" name="sysBP" min="50" max="250" required />
+      </div>
+
+      <div class="input-row">
+        <label for="diaBP">Diastolic BP (mm Hg)</label>
+        <input type="number" id="diaBP" name="diaBP" min="30" max="150" required />
+      </div>
+
+      <div class="input-row">
+        <label for="BMI">BMI</label>
+        <input type="number" id="BMI" name="BMI" step="0.1" min="10" max="60" required />
+      </div>
+
+      <div class="input-row">
+        <label for="heartRate">Heart Rate (bpm)</label>
+        <input type="number" id="heartRate" name="heartRate" min="30" max="200" required />
+      </div>
+
+      <div class="input-row">
+        <label for="glucose">Glucose (mg/dL)</label>
+        <input type="number" id="glucose" name="glucose" min="50" max="500" required />
+      </div>
+
+      <div class="full-width">
+        <button type="submit" id="predictBtn">Predict Risk</button>
+      </div>
+    </form>
+
+    <div id="resultContainer"></div>
+  </main>
+
+  <footer>
+    &copy; 2025 Heart Risk Predictor | Built with ❤️ by Hrithik Halder
+  </footer>
+
+  <!-- Popup HTML -->
+  <div id="popupContainer">
+    <div class="popup">
+      <div class="popup-content"></div>
+      <button class="popup-close">OK</button>
+    </div>
+  </div>
+
+  <script>
+    // Ripple effect on button click
+    const btn = document.getElementById('predictBtn');
+    btn.addEventListener('click', function (e) {
+      const circle = document.createElement('span');
+      circle.classList.add('ripple');
+      const rect = btn.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      circle.style.width = circle.style.height = size + 'px';
+      circle.style.left = e.clientX - rect.left - size / 2 + 'px';
+      circle.style.top = e.clientY - rect.top - size / 2 + 'px';
+      btn.appendChild(circle);
+      setTimeout(() => circle.remove(), 600);
+    });
+
+    // Popup functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const popupContainer = document.getElementById('popupContainer');
+      const popupContent = document.querySelector('.popup-content');
+      const popupClose = document.querySelector('.popup-close');
+      
+      // Close popup when clicking OK or outside
+      popupClose.addEventListener('click', closePopup);
+      popupContainer.addEventListener('click', function(e) {
+        if (e.target === popupContainer) closePopup();
+      });
+      
+      function closePopup() {
+        document.querySelector('.popup').style.animation = 'popOut 0.4s forwards';
+        setTimeout(() => {
+          popupContainer.style.display = 'none';
+        }, 400);
+      }
+      
+      // Show popup if there's a result from Flask
+      {% if risk %}
+        showPopup("{{ risk }}", "{{ 'safe' if risk == 'Low Risk' else 'risk' }}");
+      {% endif %}
+    });
+    
+    function showPopup(message, type) {
+      const popup = document.querySelector('.popup');
+      popup.className = `popup ${type}`;
+      document.querySelector('.popup-content').textContent = `Prediction: ${message}`;
+      document.getElementById('popupContainer').style.display = 'flex';
+    }
+  </script>
+</body>
+</html>

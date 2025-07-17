@@ -1,76 +1,158 @@
 # Heart Disease Prediction Project
 
-## Heart Disease Prediction using Logistic Regression
-
-## Problem:
-World Health Organization has estimated 12 million deaths occur worldwide, every year due to Heart diseases. Half the deaths in the United States and other developed countries are due to cardio vascular diseases. The early prognosis of cardiovascular diseases can aid in making decisions on lifestyle changes in high risk patients and in turn reduce the complications. This research intends to pinpoint the most relevant/risk factors of heart disease as well as predict the overall risk using logistic regression.
-
-## Solution:
-The classification goal is to predict whether the patient has 10-year risk of future coronary heart disease (CHD). 
-
-I have implemented Logistic Regression Model to predict Coronary Heart Disease.
-
-**What is Logistic Regression ?**
-
-*Logistic Regression is a statistical and machine-learning techniques classifying records of a dataset based on the values of the input fields . It predicts a dependent variable based on one or more set of independent variables to predict outcomes . It can be used both for binary classification and multi-class classification.*
+## 🫀 Overview
+This project predicts the 10-year risk of future coronary heart disease (CHD) using a machine learning model trained on the Framingham Heart Study dataset. It includes both a Jupyter notebook for data analysis/modeling and a Flask web application for user-friendly risk prediction.
 
 ---
-## Data info:
-The dataset is available on the Kaggle website, and it is from an ongoing cardiovascular study on residents of the town of Framingham, Massachusetts. The dataset provides the patients’ information. It includes over 4,000 records and 15 attributes.
 
-The dataset is already provided in the repository ([here](https://github.com/Ravjot03/Heart-Disease-Prediction/blob/master/framingham.csv)).
-
-Framingham Heart study dataset includes several demographic risk factors:-
-1. `sex`: male or female
-2. `age`: age of the patient
-3. `education`: levels coded 1 for some high school, 2 for a high school diploma or GED, 3 for some college or vocational school, and 4 for a college degree.
-
-The data set also includes behavioral risk factors associated with smoking
-
-4. `currentSmoker`: whether or not the patient is a current smoker
-5. `cigsPerDay`: the number of cigarettes that the person smoked on average in one day.
-
-Medical history risk factors
-
-6. `BPMeds`: whether or not the patient was on blood pressure medication
-7. `prevalentStroke`: whether or not the patient had previously had a stroke
-8. `prevalentHyp`: whether or not the patient was hypertensive
-9. `diabetes`: whether or not the patient had diabetes
-
-Risk factors from the first physical examination of the patient.
-
-10. `totChol`: total cholesterol level
-11. `sysBP`: systolic blood pressure
-12. `diaBP`: diastolic blood pressure
-13. `BMI`: Body Mass Index
-14. `heartRate`: heart rate
-15. `glucose`: glucose level
-16. `TenYearCHD`: 10 year risk of coronary heart disease CHD *(TARGET VARIABLE)*
+## 🚩 Problem Statement
+World Health Organization estimates 12 million deaths occur worldwide every year due to heart diseases. Early prognosis of cardiovascular diseases can help in making lifestyle decisions for high-risk patients and reduce complications. This project aims to pinpoint the most relevant risk factors and predict overall risk using logistic regression.
 
 ---
-## Libraries Used - 
-  1. Pandas *(for data manipulation)*
-  2. Matplotlib *(for data visualization)*
-  3. Seaborn *(for data visualization)*
-  4. Scikit-Learn *(for data modeling)*
+
+## 💡 Solution
+- **Classification Goal:** Predict whether a patient has a 10-year risk of future coronary heart disease (CHD).
+- **Approach:** Logistic Regression Model for binary classification.
+- **Web App:** A modern Flask-based web interface for instant risk prediction.
 
 ---
-## Contents:
-1. Importing the required libraries.
-2. Importing and Reading the dataset.
+
+## 📊 Data Information
+- **Dataset:** Framingham Heart Study (available in this repository as `framingham.csv`)
+- **Records:** 4,000+ patients, 15 attributes
+- **Source:** [Kaggle - Framingham Heart Study](https://www.kaggle.com/datasets/)
+
+### **Features in the Dataset:**
+- **Demographic:**
+  - `sex`: male or female
+  - `age`: age of the patient
+  - `education`: 1=some high school, 2=high school diploma/GED, 3=some college/vocational, 4=college degree
+- **Behavioral:**
+  - `currentSmoker`: current smoker (yes/no)
+  - `cigsPerDay`: cigarettes smoked per day
+- **Medical History:**
+  - `BPMeds`: on blood pressure medication
+  - `prevalentStroke`: previous stroke
+  - `prevalentHyp`: hypertensive
+  - `diabetes`: diabetes
+- **Physical Exam:**
+  - `totChol`: total cholesterol
+  - `sysBP`: systolic blood pressure
+  - `diaBP`: diastolic blood pressure
+  - `BMI`: body mass index
+  - `heartRate`: heart rate
+  - `glucose`: glucose level
+- **Target:**
+  - `TenYearCHD`: 10-year risk of CHD (0/1)
+
+---
+
+## 🧑‍🔬 Data Science Workflow
+1. Importing required libraries
+2. Importing and reading the dataset
 3. Exploratory Data Analysis (EDA)
-4. Data-Preprocessing
-5. Data Visualization
-    - Correlation Matrix
-    - Pairplot
-    - Countplots
+4. Data Preprocessing
+5. Data Visualization (correlation matrix, pairplot, countplots)
 6. Data Modeling
-    - Separating the data into features and target variable.
-    - Splitting the data into training and test sets.
-    - Modeling/ Training the data
-    - Predicting the data
-    - Calculating the prediction scores
-    - Getting the model's accuracy
-        - Classification Report
-        - Confusion Matrix
-        - Plotting the confusion matrix
+    - Feature/target separation
+    - Train/test split
+    - Model training (Logistic Regression)
+    - Prediction and evaluation (accuracy, classification report, confusion matrix)
+
+---
+
+## 🌐 Web App Features
+- User-friendly web interface (Flask)
+- Instant heart disease risk prediction (Low/High Risk)
+- Modern UI with popups and animations
+- Input validation and error handling
+
+---
+
+## 🏗️ Project Structure
+```
+├── app.py                        # Flask web application
+├── model/
+│   └── heart_disease_model.pkl   # Trained ML model
+├── static/                       # CSS, images, etc.
+├── templates/                    # HTML templates
+├── requirements.txt              # Python dependencies
+├── Heart_Disease_Prediction.ipynb# Jupyter notebook (EDA & modeling)
+├── framingham.csv                # Dataset
+└── README.md                     # Project documentation
+```
+
+---
+
+## 🚀 How to Run the Web App Locally
+
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/Hhalder010/Heart-Disease-Prediction.git
+   cd Heart-Disease-Prediction
+   ```
+2. **(Optional) Create a virtual environment:**
+   ```sh
+   python -m venv venv
+   venv\Scripts\activate  # On Windows
+   # or
+   source venv/bin/activate  # On Mac/Linux
+   ```
+3. **Install dependencies:**
+   ```sh
+   pip install -r requirements.txt
+   ```
+4. **Run the Flask app:**
+   ```sh
+   python app.py
+   ```
+5. **Open your browser and go to:**
+   [http://localhost:5000](http://localhost:5000)
+
+---
+
+## 🏥 Model Information
+- **Algorithm:** Logistic Regression
+- **Trained on:** Framingham Heart Study dataset
+- **Input features:** gender, age, education, smoking status, blood pressure, cholesterol, BMI, heart rate, glucose, and more
+- **Model file:** `model/heart_disease_model.pkl`
+
+---
+
+## 📋 Example Usage
+1. Fill in the form with your health and lifestyle details.
+2. Click "Predict Risk".
+3. A popup will display your risk prediction (Low Risk or High Risk).
+
+---
+
+## 🛠️ Dependencies
+- Flask
+- joblib
+- numpy
+- pandas
+- scikit-learn
+- matplotlib
+- seaborn
+
+Install all dependencies with:
+```sh
+pip install -r requirements.txt
+```
+
+---
+
+## 📸 Screenshots
+_Add screenshots of the web app and notebook outputs here (optional)_
+
+---
+
+## 🙏 Credits
+- Built by Hrithik Halder
+- Model and dataset: Framingham Heart Study
+- UI inspired by modern health dashboards
+
+---
+
+## 📄 License
+This project is for educational purposes. 

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Heart Disease Risk Assessment Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #0066cc;
+            padding-bottom: 10px;
+        }
+        .header h1 {
+            color: #0066cc;
+            margin-bottom: 5px;
+        }
+        .header .subtitle {
+            color: #666;
+            font-style: italic;
+        }
+        .patient-info {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .risk-assessment {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        .low-risk {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .high-risk {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .details {
+            margin-top: 30px;
+        }
+        .details h2 {
+            color: #0066cc;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 0.8em;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            max-width: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo">
+        <!-- Replace with your logo or remove this section -->
+        <h2>Heart Health Analytics</h2>
+    </div>
+    
+    <div class="header">
+        <h1>Heart Disease Risk Assessment Report</h1>
+        <div class="subtitle">Generated on {{ data['Report Date'] }}</div>
+    </div>
+    
+    <div class="patient-info">
+        <h2>Patient Information</h2>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>{{ data['Gender'] }}</td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td>{{ data['Age'] }}</td>
+            </tr>
+            <tr>
+                <td>Education Level</td>
+                <td>{{ data['Education Level'] }}</td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="risk-assessment {{ 'low-risk' if data['Risk Assessment'] == 'Low Risk' else 'high-risk' }}">
+        Risk Assessment: {{ data['Risk Assessment'] }}
+    </div>
+    
+    <div class="details">
+        <h2>Detailed Health Metrics</h2>
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Current Smoker</td>
+                <td>{{ data['Current Smoker'] }}</td>
+            </tr>
+            <tr>
+                <td>Cigarettes per Day</td>
+                <td>{{ data['Cigarettes per Day'] }}</td>
+            </tr>
+            <tr>
+                <td>BP Medication</td>
+                <td>{{ data['BP Medication'] }}</td>
+            </tr>
+            <tr>
+                <td>Prevalent Stroke</td>
+                <td>{{ data['Prevalent Stroke'] }}</td>
+            </tr>
+            <tr>
+                <td>Prevalent Hypertension</td>
+                <td>{{ data['Prevalent Hypertension'] }}</td>
+            </tr>
+            <tr>
+                <td>Diabetes</td>
+                <td>{{ data['Diabetes'] }}</td>
+            </tr>
+            <tr>
+                <td>Total Cholesterol</td>
+                <td>{{ data['Total Cholesterol'] }}</td>
+            </tr>
+            <tr>
+                <td>Systolic Blood Pressure</td>
+                <td>{{ data['Systolic BP'] }}</td>
+            </tr>
+            <tr>
+                <td>Diastolic Blood Pressure</td>
+                <td>{{ data['Diastolic BP'] }}</td>
+            </tr>
+            <tr>
+                <td>BMI</td>
+                <td>{{ data['BMI'] }}</td>
+            </tr>
+            <tr>
+                <td>Heart Rate</td>
+                <td>{{ data['Heart Rate'] }}</td>
+            </tr>
+            <tr>
+                <td>Glucose Level</td>
+                <td>{{ data['Glucose Level'] }}</td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="details">
+        <h2>Recommendations</h2>
+        {% if data['Risk Assessment'] == 'High Risk' %}
+        <p>Based on your assessment, you are at <strong>high risk</strong> for heart disease. We strongly recommend:</p>
+        <ul>
+            <li>Consulting with a cardiologist as soon as possible</li>
+            <li>Making lifestyle changes including diet and exercise</li>
+            <li>Monitoring your blood pressure regularly</li>
+            <li>Reducing or eliminating smoking if applicable</li>
+            <li>Following up with your primary care physician</li>
+        </ul>
+        {% else %}
+        <p>Based on your assessment, you are at <strong>low risk</strong> for heart disease. To maintain good heart health:</p>
+        <ul>
+            <li>Continue with regular physical activity</li>
+            <li>Maintain a balanced diet</li>
+            <li>Schedule regular check-ups with your doctor</li>
+            <li>Monitor any risk factors that may change over time</li>
+        </ul>
+        {% endif %}
+    </div>
+    
+    <div class="footer">
+        <p>This report is generated by Heart Health Analytics system. The results are based on statistical models and should not replace professional medical advice.</p>
+        <p>© {{ data['Report Date'][:4] }} Heart Health Analytics. All rights reserved.</p>
+    </div>
+</body>
+</html>
