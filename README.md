@@ -5,11 +5,6 @@ This project predicts the 10-year risk of future coronary heart disease (CHD) us
 
 ---
 
-## Link
-https://p9s10hwn-5000.inc1.devtunnels.ms/
-
----
-
 ## 🚩 Problem Statement
 World Health Organization estimates 12 million deaths occur worldwide every year due to heart diseases. Early prognosis of cardiovascular diseases can help in making lifestyle decisions for high-risk patients and reduce complications. This project aims to pinpoint the most relevant risk factors and predict overall risk using logistic regression.
 
